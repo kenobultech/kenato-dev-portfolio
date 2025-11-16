@@ -3,7 +3,7 @@
 'use client';
 
 // UPDATED: Added useState to control which testimonials are visible
-import React, { useRef, useEffect, useState } from 'react'; 
+import React, {  useEffect, useState } from 'react'; 
 import Image from 'next/image';
 import MainLayout from '../components/MainLayout';
 import { Clock, Users, Briefcase } from 'lucide-react';
