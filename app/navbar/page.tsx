@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // <--- IMPORT THIS
+import { usePathname } from "next/navigation";
 import {
   Home as HomeIcon,
   User,
@@ -14,7 +14,7 @@ import {
   X,
 } from "lucide-react";
 
-// --- NavItem Component (No changes needed here) ---
+// --- NavItem Component ---
 type NavItemProps = {
   name: string;
   href: string;
@@ -83,11 +83,12 @@ const NavItem: React.FC<NavItemProps> = ({
           </button>
         )}
       </div>
+
       {hasDropdown && isDropdownVisible && (
         <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 w-max rounded-xl overflow-hidden shadow-xl z-20 bg-[#2b2b2b] border border-[#333]">
           {dropdownItems.map((item, index) => (
             <Link key={index} href={item.href}>
-              <div className="block w-full text-left py-2 px-6 text-gray-200 hover:bg-blue-500 hover:text-white transition-colors duration-150 text-sm">
+              <div className="block w-full py-2 px-6 text-gray-200 hover:bg-blue-500 hover:text-white transition-colors duration-150 text-sm">
                 {item.label}
               </div>
             </Link>
@@ -98,13 +99,11 @@ const NavItem: React.FC<NavItemProps> = ({
   );
 };
 
-
-// --- Navbar Component (This is where the changes are) ---
+// --- Navbar Component ---
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const pathname = usePathname(); // Get the current path
+  const pathname = usePathname();
 
-  // Define navigation links as an array of objects for easier management
   const navLinks = [
     { name: "Home", href: "/", icon: HomeIcon },
     { name: "About", href: "/about", icon: User },
@@ -115,18 +114,8 @@ export default function Navbar() {
       hasDropdown: true,
       dropdownItems: [{ label: "Service Details", href: "/services/details" }],
     },
-    {
-      name: "Works",
-      href: "/works",
-      icon: Briefcase,
-    },
-    {
-      name: "Blogs",
-      href: "/blogs",
-      icon: BookOpen,
-     
-      
-    },
+    { name: "Works", href: "/works", icon: Briefcase },
+    { name: "Blogs", href: "/blogs", icon: BookOpen },
   ];
 
   return (
@@ -141,45 +130,6 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex space-x-2 items-center">
             {navLinks.map((link) => {
-              // Logic to determine if the link is active
-              const isActive =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(link.href);
-
-              return (
-                <NavItem
-                  key={link.name}
-                  {...link} // Spread the rest of the link properties
-                  active={isActive} // Set the active prop dynamically
-                />
-              );
-            })}
-          </div>
-
-          <Link href="/contact">
-            <button className="hidden lg:block py-2 px-6 rounded-full text-white font-semibold bg-blue-600 hover:bg-white  cursor-pointer hover:text-black transition-all duration-200 ml-4">
-              Let&apos;s Talk
-            </button>
-          </Link>
-
-          <div className="lg:hidden">
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-white focus:outline-none"
-            >
-              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden mt-3 bg-[#202020] rounded-2xl p-4 shadow-lg">
-          <div className="flex flex-col items-center space-y-3">
-            {navLinks.map((link) => {
-              // Use the same logic for mobile
               const isActive =
                 link.href === "/"
                   ? pathname === "/"
@@ -187,14 +137,67 @@ export default function Navbar() {
 
               return <NavItem key={link.name} {...link} active={isActive} />;
             })}
-            <Link href="/contact">
-              <button className="w-full py-3 px-6 rounded-full text-white font-semibold bg-blue-600 hover:bg-blue-500 transition-all duration-200">
-                Let&apos;s Talk
-              </button>
-            </Link>
+          </div>
+
+          <Link href="/contact">
+            <button className="hidden lg:block py-2 px-6 rounded-full text-white font-semibold bg-blue-600 hover:bg-white hover:text-black transition-all duration-200 ml-4">
+              Let&apos;s Talk
+            </button>
+          </Link>
+
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="text-white"
+            >
+              <Menu size={28} />
+            </button>
           </div>
         </div>
+      </nav>
+
+      {/* BACKDROP */}
+      {isMobileMenuOpen && (
+        <div
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+        />
       )}
+
+      {/* SLIDING MOBILE MENU (Right Side) */}
+      <div
+        className={`fixed right-0 top-0 h-full w-72 bg-[#202020] shadow-xl z-50 transform transition-transform duration-300 ${
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="p-4 flex justify-between items-center border-b border-[#333]">
+          <span className="text-xl font-semibold text-white">Menu</span>
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-white"
+          >
+            <X size={28} />
+          </button>
+        </div>
+
+        <div className="flex flex-col space-y-3 p-4">
+          {navLinks.map((link) => {
+            const isActive =
+              link.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(link.href);
+
+            return <NavItem key={link.name} {...link} active={isActive} />;
+          })}
+
+          <Link href="/contact">
+            <button className="w-full py-3 px-6 rounded-full text-white font-semibold bg-blue-600 hover:bg-blue-500 transition-all duration-200 mt-3">
+              Let&apos;s Talk
+            </button>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
