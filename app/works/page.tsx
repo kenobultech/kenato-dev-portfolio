@@ -39,7 +39,7 @@ const projectsData: Project[] = [
     category: "Full-Stack Web Development",
     date: "2025 October",
     imagePath: "/images/project_3.png",
-    liveUrl: "https://lipa-haraka-online-platform.vercel.app", // Placeholder URL
+    liveUrl: "https://lipa-haraka-mobile-money-e-platform.vercel.app", // Placeholder URL
     delay: 0.3,
   },
   {
