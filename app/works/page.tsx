@@ -63,7 +63,7 @@ const projectsData: Project[] = [
     category: "Frontend Web Development",
     date: "2023 May",
     imagePath: "/images/project_6.png",
-    liveUrl: "https://ronil-to-do-app.vercel.app", // Placeholder URL
+    liveUrl: "https://pro-to-app-frontend.vercel.app", // Placeholder URL
     delay: 0.6,
   },
 ];
