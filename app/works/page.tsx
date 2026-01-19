@@ -66,6 +66,15 @@ const projectsData: Project[] = [
     liveUrl: "https://pro-to-app-frontend.vercel.app", // Placeholder URL
     delay: 0.6,
   },
+  {
+    title: "Cafe aura coffee whop website",
+    category: "Frontend Web Development",
+    date: "2026 January",
+    imagePath: "/images/project_7.png",
+    liveUrl: "https://cafe-aura-coffee-website.vercel.app", // Placeholder URL
+    delay: 0.7,
+  },
+
 ];
 
 // --- Section Header Component (for consistency) ---
