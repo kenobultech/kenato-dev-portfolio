@@ -45,7 +45,7 @@ const projectsData: Project[] = [
   {
     title: "AuraResume SaaS Platform",
     category: "Web Development",
-    date: "2024 December",
+    date: "2026 February",
     imagePath: "/images/project-4.png",
     liveUrl: "https://aura-resume-builder.vercel.app", // Placeholder URL
     delay: 0.4,
