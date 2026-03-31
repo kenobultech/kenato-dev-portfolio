@@ -43,11 +43,11 @@ const projectsData: Project[] = [
     delay: 0.3,
   },
   {
-    title: "Resume Builder App",
+    title: "AuraResume SaaS Platform",
     category: "Web Development",
     date: "2024 December",
-    imagePath: "/images/project_4.png",
-    liveUrl: "https://resume-react-builder.netlify.app", // Placeholder URL
+    imagePath: "/images/project-4.png",
+    liveUrl: "https://aura-resume-builder.vercel.app", // Placeholder URL
     delay: 0.4,
   },
   {
